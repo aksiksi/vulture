@@ -26,11 +26,11 @@ NEWSPIDER_MODULE = 'vulture.spiders'
 # See also autothrottle settings and docs
 #DOWNLOAD_DELAY=3
 # The download delay setting will honor only one of:
-#CONCURRENT_REQUESTS_PER_DOMAIN=16
-#CONCURRENT_REQUESTS_PER_IP=16
+# CONCURRENT_REQUESTS_PER_DOMAIN=16
+CONCURRENT_REQUESTS_PER_IP=16
 
 # Disable cookies (enabled by default)
-COOKIES_ENABLED=False
+# COOKIES_ENABLED=False
 
 # Disable Telnet Console (enabled by default)
 #TELNETCONSOLE_ENABLED=False
@@ -43,15 +43,15 @@ COOKIES_ENABLED=False
 
 # Enable or disable spider middlewares
 # See http://scrapy.readthedocs.org/en/latest/topics/spider-middleware.html
-SPIDER_MIDDLEWARES = {
-   'vulture.middlewares.UserAgentMiddleware': 500,
-}
+# SPIDER_MIDDLEWARES = {
+#    'vulture.middlewares.DubizzleRequestMiddleware': 600,
+# }
 
 # Enable or disable downloader middlewares
 # See http://scrapy.readthedocs.org/en/latest/topics/downloader-middleware.html
-#DOWNLOADER_MIDDLEWARES = {
-#    'vulture.middlewares.MyCustomDownloaderMiddleware': 543,
-#}
+DOWNLOADER_MIDDLEWARES = {
+   'vulture.middlewares.DubizzleRequestMiddleware': 543,
+}
 
 # Enable or disable extensions
 # See http://scrapy.readthedocs.org/en/latest/topics/extensions.html
@@ -68,13 +68,13 @@ SPIDER_MIDDLEWARES = {
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See http://doc.scrapy.org/en/latest/topics/autothrottle.html
 # NOTE: AutoThrottle will honour the standard settings for concurrency and delay
-#AUTOTHROTTLE_ENABLED=True
+AUTOTHROTTLE_ENABLED=True
 # The initial download delay
-#AUTOTHROTTLE_START_DELAY=5
+AUTOTHROTTLE_START_DELAY=2
 # The maximum download delay to be set in case of high latencies
-#AUTOTHROTTLE_MAX_DELAY=60
+AUTOTHROTTLE_MAX_DELAY=20
 # Enable showing throttling stats for every response received:
-#AUTOTHROTTLE_DEBUG=False
+AUTOTHROTTLE_DEBUG=False
 
 # Enable and configure HTTP caching (disabled by default)
 # See http://scrapy.readthedocs.org/en/latest/topics/downloader-middleware.html#httpcache-middleware-settings
@@ -113,7 +113,10 @@ USER_AGENTS = [
     "Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.1; Trident/5.0)",
 ]
 
-from re import compile
+# Simple logging
+from datetime import datetime
+LOG_FILE = 'logs/{0}.log'.format(datetime.now().strftime('%d-%m-%Y'))
 
-DUBIZZLE_AD_REGEX = compile(r'motors\/used-cars\/[^\?]')
-DUBIZZLE_PAGE_REGEX = compile(r'motors\/used-cars\/\?page=(\d+)')
+# Export items (for now)
+FEED_URI = 'file:///tmp/output.json'
+FEED_FORMAT = 'jsonlines'

@@ -1,7 +1,5 @@
 # Vulture
 
-* Figure out site structure
-* Decide on item schema
+* Implement simple working spider (in progress)
 * Decide on pipelines
     - Write to DB (PSQL, Mongo?)
-    - Remove any dupes maybe?

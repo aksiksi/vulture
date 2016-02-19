@@ -9,5 +9,6 @@ import scrapy
 
 class DubizzleItem(scrapy.Item):
     title = scrapy.Field()
+    date = scrapy.Field()
     make = scrapy.Field()
     model = scrapy.Field()
